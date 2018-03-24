@@ -151,25 +151,23 @@ public class inlup extends JFrame{
 					JewelFrame.setSize(250,300);
 					JewelFrame.setDefaultCloseOperation(EXIT_ON_CLOSE);
 					JewelPanel.add(JewelNameTextfield);
-					JewelNameTextfield.addActionListener(new ActionListener(){
-						public void actionPerformed(ActionEvent e){
-							String JewelName = JewelNameTextfield.getText();
-							System.out.println("JewelName: " + JewelName);
-						}
-					});
+					
 					JewelPanel.add(JewelStoneLabel);
 					JewelPanel.add(JewelStoneTextfield);
-					JewelStoneTextfield.addActionListener(new ActionListener(){
-						public void actionPerformed(ActionEvent e){
-							String JewelStone = JewelStoneTextfield.getText();
-							System.out.println("JewelStone: " + JewelStone);
-						}
-					});
 					JewelPanel.add(Box);
 					JewelPanel.add(JewelGoldLabel);
 					JewelPanel.add(OKButton);
 					JewelPanel.add(CancelButton);
+					OKButton.addActionListener(new ActionListener(){
+						public void actionPerformed(ActionEvent e){
+							String JewelName = JewelNameTextfield.getText();
+							System.out.println("JewelName: " + JewelName);
+							String JewelStone = JewelStoneTextfield.getText();
+							System.out.println("JewelStone: " + JewelStone);
+						}
+					});
 				}
+				
 				if(valuablesList.getSelectedIndex() == 3) { //gadget
 					//System.out.println("gadget");
 					GadgetPanel.add(GadgetNameLabel);
@@ -180,30 +178,22 @@ public class inlup extends JFrame{
 					GadgetFrame.setSize(250,300);
 					GadgetFrame.setDefaultCloseOperation(EXIT_ON_CLOSE);
 					GadgetPanel.add(GadgetNameTextfield);
-					GadgetNameTextfield.addActionListener(new ActionListener(){
+					GadgetPanel.add(GadgetPriceLabel);
+					GadgetPanel.add(GadgetPriceTextfield);
+					GadgetPanel.add(GadgetWearLabel);
+					GadgetPanel.add(GadgetWearTextfield);
+					GadgetPanel.add(OKButton);
+					GadgetPanel.add(CancelButton);
+					OKButton.addActionListener(new ActionListener(){
 						public void actionPerformed(ActionEvent e){
 							String GadgetName = GadgetNameTextfield.getText();
 							System.out.println("GadgetName: " + GadgetName);
-						}
-					});
-					GadgetPanel.add(GadgetPriceLabel);
-					GadgetPanel.add(GadgetPriceTextfield);
-					GadgetPriceTextfield.addActionListener(new ActionListener(){
-						public void actionPerformed(ActionEvent e){
 							String GadgetPrice = GadgetPriceTextfield.getText();
 							System.out.println("GadgetPrice: " + GadgetPrice);
-						}
-					});
-					GadgetPanel.add(GadgetWearLabel);
-					GadgetPanel.add(GadgetWearTextfield);
-					GadgetWearTextfield.addActionListener(new ActionListener(){
-						public void actionPerformed(ActionEvent e){
 							String GadgetQuotation = GadgetWearTextfield.getText();
 							System.out.println("GadgetWear: " + GadgetQuotation);
 						}
 					});
-					GadgetPanel.add(OKButton);
-					GadgetPanel.add(CancelButton);
 				}
 			}		
 		}
