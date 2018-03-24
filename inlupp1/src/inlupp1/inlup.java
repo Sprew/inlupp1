@@ -121,7 +121,7 @@ public class inlup extends JFrame{
 					StockFrame.setTitle("New Stock");
 					StockFrame.setVisible(true);
 					StockFrame.setSize(290,300);
-					StockFrame.setDefaultCloseOperation(EXIT_ON_CLOSE);
+					StockFrame.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 					StockPanel.add(StockNameTextfield);
 					StockPanel.add(StockNumberLabel);
 					StockPanel.add(StockNumberTextfield);
@@ -139,6 +139,11 @@ public class inlup extends JFrame{
 							System.out.println("StockName: " + StockName);
 						}
 					});
+					CancelButton.addActionListener(new ActionListener(){
+						public void actionPerformed(ActionEvent e){
+							StockFrame.dispose();
+						}
+					});
 				}
 				
 				if(valuablesList.getSelectedIndex() == 2) { //Jewelry
@@ -149,7 +154,7 @@ public class inlup extends JFrame{
 					JewelFrame.setTitle("New Jewel");
 					JewelFrame.setVisible(true);
 					JewelFrame.setSize(250,300);
-					JewelFrame.setDefaultCloseOperation(EXIT_ON_CLOSE);
+					JewelFrame.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 					JewelPanel.add(JewelNameTextfield);
 					
 					JewelPanel.add(JewelStoneLabel);
@@ -166,6 +171,11 @@ public class inlup extends JFrame{
 							System.out.println("JewelStone: " + JewelStone);
 						}
 					});
+					CancelButton.addActionListener(new ActionListener(){
+						public void actionPerformed(ActionEvent e){
+							JewelFrame.dispose();
+						}
+					});
 				}
 				
 				if(valuablesList.getSelectedIndex() == 3) { //gadget
@@ -176,7 +186,7 @@ public class inlup extends JFrame{
 					GadgetFrame.setTitle("New Gadget");
 					GadgetFrame.setVisible(true);
 					GadgetFrame.setSize(250,300);
-					GadgetFrame.setDefaultCloseOperation(EXIT_ON_CLOSE);
+					GadgetFrame.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 					GadgetPanel.add(GadgetNameTextfield);
 					GadgetPanel.add(GadgetPriceLabel);
 					GadgetPanel.add(GadgetPriceTextfield);
@@ -192,6 +202,11 @@ public class inlup extends JFrame{
 							System.out.println("GadgetPrice: " + GadgetPrice);
 							String GadgetQuotation = GadgetWearTextfield.getText();
 							System.out.println("GadgetWear: " + GadgetQuotation);
+						}
+					});
+					CancelButton.addActionListener(new ActionListener(){
+						public void actionPerformed(ActionEvent e){
+							GadgetFrame.dispose();
 						}
 					});
 				}
