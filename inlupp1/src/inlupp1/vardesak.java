@@ -9,7 +9,7 @@ public class vardesak {
 	
 	class stocks extends valuable{
 		private int quantity;
-		private double course;
+		private double quotation;
 	}
 	
 	class jewelry extends valuable{

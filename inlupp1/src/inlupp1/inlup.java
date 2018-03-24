@@ -25,7 +25,7 @@ public class inlup extends JFrame{
 	JFrame StockFrame = new JFrame();
 	JPanel StockPanel = new JPanel();
 	JLabel StockNameLabel = new JLabel("Name: ");
-	JLabel StockNumberLabel = new JLabel("Number: ");
+	JLabel StockNumberLabel = new JLabel("Quantity: ");
 	JLabel StockQuotationLabel = new JLabel("Quotation: ");
 	JTextField StockNameTextfield = new JTextField(15);
 	JTextField StockNumberTextfield = new JTextField(15);
@@ -123,30 +123,22 @@ public class inlup extends JFrame{
 					StockFrame.setSize(290,300);
 					StockFrame.setDefaultCloseOperation(EXIT_ON_CLOSE);
 					StockPanel.add(StockNameTextfield);
-					StockNameTextfield.addActionListener(new ActionListener(){
+					StockPanel.add(StockNumberLabel);
+					StockPanel.add(StockNumberTextfield);
+					StockPanel.add(StockQuotationLabel);
+					StockPanel.add(StockQuotationTextfield);
+					StockPanel.add(OKButton);
+					StockPanel.add(CancelButton);
+					OKButton.addActionListener(new ActionListener(){
 						public void actionPerformed(ActionEvent e){
+							String StockQuotation = StockQuotationTextfield.getText();
+							String StockNumber = StockNumberTextfield.getText();
 							String StockName = StockNameTextfield.getText();
+							System.out.println("StockQuotation: " + StockQuotation);
+							System.out.println("StockNumber: " + StockNumber);
 							System.out.println("StockName: " + StockName);
 						}
 					});
-					StockPanel.add(StockNumberLabel);
-					StockPanel.add(StockNumberTextfield);
-					StockNumberTextfield.addActionListener(new ActionListener(){
-						public void actionPerformed(ActionEvent e){
-							String StockNumber = StockNumberTextfield.getText();
-							System.out.println("StockNumber: " + StockNumber);
-						}
-					});
-					StockPanel.add(StockQuotationLabel);
-					StockPanel.add(StockQuotationTextfield);
-					StockQuotationTextfield.addActionListener(new ActionListener(){
-						public void actionPerformed(ActionEvent e){
-							String StockQuotation = StockQuotationTextfield.getText();
-							System.out.println("StockQuotation: " + StockQuotation);
-						}
-					});
-					StockPanel.add(OKButton);
-					StockPanel.add(CancelButton);
 				}
 				
 				if(valuablesList.getSelectedIndex() == 2) { //Jewelry
