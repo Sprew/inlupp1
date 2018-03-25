@@ -6,6 +6,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
+import java.lang.reflect.Field;
+import java.util.ArrayList;
 
 import javax.swing.*;
 
@@ -17,6 +19,8 @@ public class inlup extends JFrame{
 	JComboBox valuablesList;
 	String[] allValuables = {"SELECT ONE", "Stocks", "Jewelry", "Gadget"};
 	
+	
+	JTextArea textArea;
 	JButton OKButton = new JButton("OK");
 	JButton CancelButton = new JButton("Cancel");
 	
@@ -25,11 +29,12 @@ public class inlup extends JFrame{
 	JFrame StockFrame = new JFrame();
 	JPanel StockPanel = new JPanel();
 	JLabel StockNameLabel = new JLabel("Name: ");
-	JLabel StockNumberLabel = new JLabel("Quantity: ");
+	JLabel StockQuantityLabel = new JLabel("Quantity: ");
 	JLabel StockQuotationLabel = new JLabel("Quotation: ");
 	JTextField StockNameTextfield = new JTextField(15);
-	JTextField StockNumberTextfield = new JTextField(15);
-	JTextField StockQuotationTextfield = new JTextField(15);
+	JSpinner StockQuantitySpinner = new JSpinner(new SpinnerNumberModel(0,0, Integer.MAX_VALUE, 1));
+	JSpinner StockQuotationSpinner = new JSpinner(new SpinnerNumberModel(0.0,0.0, 1000000000.0, 0.1));
+
 	
 	JFrame JewelFrame = new JFrame();
 	JPanel JewelPanel = new JPanel();
@@ -48,6 +53,8 @@ public class inlup extends JFrame{
 	JTextField GadgetPriceTextfield = new JTextField(15);
 	JTextField GadgetWearTextfield = new JTextField(15);
 	
+	ArrayList<Vardesak> vardesaker = new ArrayList<Vardesak>();
+	
 	
 	public static void main(String[] args) {
 		
@@ -63,8 +70,8 @@ public class inlup extends JFrame{
 		this.setTitle("Vardesaker");
 		
 		JPanel thePanel = new JPanel();
-		JTextArea textArea = new JTextArea(15,20);		
-		JButton showButton = new JButton("Show");
+		textArea = new JTextArea(15,20);		
+		showButton = new JButton("Show");
 		JButton crashButton = new JButton("Stock Market Crash");
 		JLabel newLabel = new JLabel("New: ");
 		valuablesList = new JComboBox(allValuables);
@@ -76,15 +83,14 @@ public class inlup extends JFrame{
 		valuablesList.addItemListener(lForItem);
 		
 		textArea.setLineWrap(true);
-		textArea.setEditable(false);
+		//textArea.setEditable(false);
 		newLabel.setToolTipText("Add new valuables");
 		showButton.setContentAreaFilled(false);
 		crashButton.setContentAreaFilled(false);
 		JScrollPane scrollbar1 = new JScrollPane(textArea, 
 				JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, 
 				JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
-		
-		textArea.append("testar");		
+				
 		
 		thePanel.add(scrollbar1);
 		thePanel.add(textArea);
@@ -98,9 +104,22 @@ public class inlup extends JFrame{
 
 	private class ListenForButton implements ActionListener{
 		
+		
 		public void actionPerformed(ActionEvent e) {
 			if(e.getSource() == showButton) {
-				
+				textArea.setText("");
+				for(Vardesak item: vardesaker) {
+					if(item instanceof Stocks) {
+						Stocks s = (Stocks) item;
+						textArea.append(s.getName() + " " + s.getQuantity() + " " + s.getQuotation() + " " + s.getValue());			
+					}
+					if(item instanceof Gadget) {
+						Gadget g = (Gadget) item;
+						textArea.append(g.getName() + " " + g.getPurchasePrice() + " " + g.getWear() + " " + g.getValue());
+					}
+					/** SAKNAR FÖR DEN SISTA JEWELRY, DU FÅR LÄGGA TILL DEN :) **/
+					
+				}
 			}
 			if(e.getSource() == crashButton) {
 				
@@ -122,25 +141,34 @@ public class inlup extends JFrame{
 					StockFrame.setVisible(true);
 					StockFrame.setSize(290,300);
 					StockFrame.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+					
 					StockPanel.add(StockNameTextfield);
-					StockPanel.add(StockNumberLabel);
-					StockPanel.add(StockNumberTextfield);
+					StockPanel.add(StockQuantityLabel);
+					StockPanel.add(StockQuantitySpinner);
 					StockPanel.add(StockQuotationLabel);
-					StockPanel.add(StockQuotationTextfield);
+					StockPanel.add(StockQuotationSpinner);
 					StockPanel.add(OKButton);
 					StockPanel.add(CancelButton);
 					OKButton.addActionListener(new ActionListener(){
 						public void actionPerformed(ActionEvent e){
-							String StockQuotation = StockQuotationTextfield.getText();
-							String StockNumber = StockNumberTextfield.getText();
+							Double StockQuotation =(Double) StockQuotationSpinner.getValue();
+							int StockQuantity = (Integer)StockQuantitySpinner.getValue();
 							String StockName = StockNameTextfield.getText();
 							System.out.println("StockQuotation: " + StockQuotation);
-							System.out.println("StockNumber: " + StockNumber);
+							System.out.println("StockNumber: " + StockQuantity);
 							System.out.println("StockName: " + StockName);
+							Stocks s = new Stocks(StockNameTextfield.getSelectedText(), 
+									StockQuantity, StockQuotation);
+							vardesaker.add(s);
+							System.out.println("Size of ArrayList: " + vardesaker.size());
+							StockFrame.dispose();
 						}
 					});
 					CancelButton.addActionListener(new ActionListener(){
 						public void actionPerformed(ActionEvent e){
+							StockQuotationSpinner.setValue(0.0);
+							StockQuantitySpinner.setValue(0);
+							StockNameTextfield.setText("");
 							StockFrame.dispose();
 						}
 					});
@@ -202,6 +230,7 @@ public class inlup extends JFrame{
 							System.out.println("GadgetPrice: " + GadgetPrice);
 							String GadgetQuotation = GadgetWearTextfield.getText();
 							System.out.println("GadgetWear: " + GadgetQuotation);
+							
 						}
 					});
 					CancelButton.addActionListener(new ActionListener(){
