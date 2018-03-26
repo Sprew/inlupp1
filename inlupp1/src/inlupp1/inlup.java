@@ -42,7 +42,8 @@ public class inlup extends JFrame{
 	JLabel JewelStoneLabel = new JLabel("Stone: ");
 	JLabel JewelGoldLabel = new JLabel("Made of gold");
 	JTextField JewelNameTextfield = new JTextField(15);
-	JTextField JewelStoneTextfield = new JTextField(15);
+	JSpinner JewelStoneSpinner = new JSpinner(new SpinnerNumberModel(0,0, Integer.MAX_VALUE, 1));
+	//JTextField JewelStoneTextfield = new JTextField(15);
 	
 	JFrame GadgetFrame = new JFrame();
 	JPanel GadgetPanel = new JPanel();
@@ -50,8 +51,10 @@ public class inlup extends JFrame{
 	JLabel GadgetPriceLabel = new JLabel("Price: ");
 	JLabel GadgetWearLabel = new JLabel("Wear: ");
 	JTextField GadgetNameTextfield = new JTextField(15);
-	JTextField GadgetPriceTextfield = new JTextField(15);
-	JTextField GadgetWearTextfield = new JTextField(15);
+	JSpinner GadgetWearSpinner = new JSpinner(new SpinnerNumberModel(0,0, Integer.MAX_VALUE, 1));
+	JSpinner GadgetPriceSpinner = new JSpinner(new SpinnerNumberModel(0.0,0.0, 1000000000.0, 0.1));
+	//JTextField GadgetPriceTextfield = new JTextField(15);
+	//JTextField GadgetWearTextfield = new JTextField(15);
 	
 	ArrayList<Vardesak> vardesaker = new ArrayList<Vardesak>();
 	
@@ -111,13 +114,17 @@ public class inlup extends JFrame{
 				for(Vardesak item: vardesaker) {
 					if(item instanceof Stocks) {
 						Stocks s = (Stocks) item;
-						textArea.append(s.getName() + " " + s.getQuantity() + " " + s.getQuotation() + " " + s.getValue());			
+						textArea.append("Stock: " + s.getName() + " Quantity: " + s.getQuantity() + " Quotation: " + s.getQuotation() + " Value: " + s.getValue() + "\n");			
 					}
 					if(item instanceof Gadget) {
 						Gadget g = (Gadget) item;
-						textArea.append(g.getName() + " " + g.getPurchasePrice() + " " + g.getWear() + " " + g.getValue());
+						textArea.append("Gadget: " + g.getName() + " Price: " + g.getPurchasePrice() + " Wear: " + g.getWear() + " Value: " + g.getValue() + "\n");
 					}
-					/** SAKNAR F÷R DEN SISTA JEWELRY, DU F≈R LƒGGA TILL DEN :) **/
+					if(item instanceof Jewelry){
+						Jewelry j = (Jewelry) item;
+						textArea.append("Jewelry: " + j.getName() + " Stone: " + j.getGemstone() + " Made of gold?: " + j.isGold() + " Value: " + j.getValue() + "\n");
+					}
+					/** SAKNAR FÖR DEN SISTA JEWELRY, DU FÅR LÄGGA TILL DEN :) **/
 					
 				}
 			}
@@ -154,11 +161,13 @@ public class inlup extends JFrame{
 							Double StockQuotation =(Double) StockQuotationSpinner.getValue();
 							int StockQuantity = (Integer)StockQuantitySpinner.getValue();
 							String StockName = StockNameTextfield.getText();
+							
 							System.out.println("StockQuotation: " + StockQuotation);
 							System.out.println("StockNumber: " + StockQuantity);
 							System.out.println("StockName: " + StockName);
-							Stocks s = new Stocks(StockNameTextfield.getSelectedText(), 
-									StockQuantity, StockQuotation);
+							
+							Stocks s = new Stocks(/*StockNameTextfield.getSelectedText(), Denna ger bara null*/ 
+									StockName, StockQuantity, StockQuotation);
 							vardesaker.add(s);
 							System.out.println("Size of ArrayList: " + vardesaker.size());
 							StockFrame.dispose();
@@ -186,7 +195,7 @@ public class inlup extends JFrame{
 					JewelPanel.add(JewelNameTextfield);
 					
 					JewelPanel.add(JewelStoneLabel);
-					JewelPanel.add(JewelStoneTextfield);
+					JewelPanel.add(JewelStoneSpinner);
 					JewelPanel.add(Box);
 					JewelPanel.add(JewelGoldLabel);
 					JewelPanel.add(OKButton);
@@ -195,12 +204,21 @@ public class inlup extends JFrame{
 						public void actionPerformed(ActionEvent e){
 							String JewelName = JewelNameTextfield.getText();
 							System.out.println("JewelName: " + JewelName);
-							String JewelStone = JewelStoneTextfield.getText();
+							int JewelStone = (Integer)JewelStoneSpinner.getValue();
 							System.out.println("JewelStone: " + JewelStone);
+							boolean JewelGold = Box.isSelected() == true;
+							boolean JewelSilver = Box.isSelected() == false;
+							Jewelry j = new Jewelry(JewelName, JewelStone, JewelGold, JewelSilver);
+							vardesaker.add(j);
+							System.out.println("Size of ArrayList: " + vardesaker.size());
+							JewelFrame.dispose();
 						}
 					});
 					CancelButton.addActionListener(new ActionListener(){
 						public void actionPerformed(ActionEvent e){
+							JewelStoneSpinner.setValue(0);
+							JewelNameTextfield.setText("");
+							Box.setSelected(false);
 							JewelFrame.dispose();
 						}
 					});
@@ -217,24 +235,32 @@ public class inlup extends JFrame{
 					GadgetFrame.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 					GadgetPanel.add(GadgetNameTextfield);
 					GadgetPanel.add(GadgetPriceLabel);
-					GadgetPanel.add(GadgetPriceTextfield);
+					GadgetPanel.add(GadgetPriceSpinner);
 					GadgetPanel.add(GadgetWearLabel);
-					GadgetPanel.add(GadgetWearTextfield);
+					GadgetPanel.add(GadgetWearSpinner);
 					GadgetPanel.add(OKButton);
 					GadgetPanel.add(CancelButton);
 					OKButton.addActionListener(new ActionListener(){
 						public void actionPerformed(ActionEvent e){
 							String GadgetName = GadgetNameTextfield.getText();
 							System.out.println("GadgetName: " + GadgetName);
-							String GadgetPrice = GadgetPriceTextfield.getText();
+							Double GadgetPrice = (Double)GadgetPriceSpinner.getValue();
 							System.out.println("GadgetPrice: " + GadgetPrice);
-							String GadgetQuotation = GadgetWearTextfield.getText();
+							int GadgetQuotation = (Integer)GadgetWearSpinner.getValue();
 							System.out.println("GadgetWear: " + GadgetQuotation);
+							
+							Gadget g = new Gadget(GadgetName, GadgetPrice, GadgetQuotation);
+							vardesaker.add(g);
+							System.out.println("Size of ArrayList: " + vardesaker.size());
+							GadgetFrame.dispose();
 							
 						}
 					});
 					CancelButton.addActionListener(new ActionListener(){
 						public void actionPerformed(ActionEvent e){
+							GadgetPriceSpinner.setValue(0.0);
+							GadgetWearSpinner.setValue(0);
+							GadgetNameTextfield.setText("");
 							GadgetFrame.dispose();
 						}
 					});
