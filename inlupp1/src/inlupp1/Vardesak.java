@@ -116,5 +116,3 @@ public class Vardesak {
 			this.wear = wear;
 		}
 	}
-
-
