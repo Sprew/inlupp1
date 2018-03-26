@@ -135,6 +135,31 @@ public class inlup extends JFrame{
 				
 				if(valuablesList.getSelectedIndex() == 2) { //Jewelry
 					//System.out.println("jewel");
+					JTextField Name = new JTextField();
+					JTextField Stone = new JTextField();
+					JCheckBox Box = new JCheckBox();
+					
+					Object[] jewel = {
+					    "Name:", Name,
+					    "Stone:", Stone,
+					    "Made of Gold", Box
+					};
+
+					int option = JOptionPane.showConfirmDialog(null, jewel, "Jewel", JOptionPane.OK_CANCEL_OPTION);
+					if (option == JOptionPane.OK_OPTION) {
+						try{
+							String JewelName = Name.getText();
+							int JewelStone = Integer.parseInt(Stone.getText());
+							boolean JewelGold = Box.isSelected() == true;
+							boolean JewelSilver = Box.isSelected() == false;
+							Jewelry j = new Jewelry(JewelName, JewelStone, JewelGold, JewelSilver);
+							vardesaker.add(j);
+							System.out.println("Size of ArrayList: " + vardesaker.size());
+						}
+						catch(Exception error){
+							JOptionPane.showMessageDialog(null, "Wrong input you dick!", "Error!", JOptionPane.ERROR_MESSAGE);
+						}
+					}
 				}
 				
 				if(valuablesList.getSelectedIndex() == 3) { //gadget
