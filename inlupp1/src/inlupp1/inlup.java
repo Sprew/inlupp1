@@ -21,40 +21,6 @@ public class inlup extends JFrame{
 	
 	
 	JTextArea textArea;
-	JButton OKButton = new JButton("OK");
-	JButton CancelButton = new JButton("Cancel");
-	
-	JCheckBox Box = new JCheckBox();
-	
-	JFrame StockFrame = new JFrame();
-	JPanel StockPanel = new JPanel();
-	JLabel StockNameLabel = new JLabel("Name: ");
-	JLabel StockQuantityLabel = new JLabel("Quantity: ");
-	JLabel StockQuotationLabel = new JLabel("Quotation: ");
-	JTextField StockNameTextfield = new JTextField(15);
-	JSpinner StockQuantitySpinner = new JSpinner(new SpinnerNumberModel(0,0, Integer.MAX_VALUE, 1));
-	JSpinner StockQuotationSpinner = new JSpinner(new SpinnerNumberModel(0.0,0.0, 1000000000.0, 0.1));
-
-	
-	JFrame JewelFrame = new JFrame();
-	JPanel JewelPanel = new JPanel();
-	JLabel JewelNameLabel = new JLabel("Name: ");
-	JLabel JewelStoneLabel = new JLabel("Stone: ");
-	JLabel JewelGoldLabel = new JLabel("Made of gold");
-	JTextField JewelNameTextfield = new JTextField(15);
-	JSpinner JewelStoneSpinner = new JSpinner(new SpinnerNumberModel(0,0, Integer.MAX_VALUE, 1));
-	//JTextField JewelStoneTextfield = new JTextField(15);
-	
-	JFrame GadgetFrame = new JFrame();
-	JPanel GadgetPanel = new JPanel();
-	JLabel GadgetNameLabel = new JLabel("Name: ");
-	JLabel GadgetPriceLabel = new JLabel("Price: ");
-	JLabel GadgetWearLabel = new JLabel("Wear: ");
-	JTextField GadgetNameTextfield = new JTextField(15);
-	JSpinner GadgetWearSpinner = new JSpinner(new SpinnerNumberModel(0,0, Integer.MAX_VALUE, 1));
-	JSpinner GadgetPriceSpinner = new JSpinner(new SpinnerNumberModel(0.0,0.0, 1000000000.0, 0.1));
-	//JTextField GadgetPriceTextfield = new JTextField(15);
-	//JTextField GadgetWearTextfield = new JTextField(15);
 	
 	ArrayList<Vardesak> vardesaker = new ArrayList<Vardesak>();
 	
@@ -134,136 +100,94 @@ public class inlup extends JFrame{
 		}	
 	}
 	
-	private class ListenForItem implements ItemListener{
+	private class ListenForItem implements ItemListener{ // JDialog here
 
 		@Override
 		public void itemStateChanged(ItemEvent e) {
 			if(e.getStateChange() == ItemEvent.SELECTED) {
 				if(valuablesList.getSelectedIndex() == 1) { //stocks
 					//System.out.println("Stocks");
-					StockPanel.add(StockNameLabel);
-					StockFrame.add(StockPanel);
+					JTextField Name = new JTextField();
+					JTextField Quantity = new JTextField();
+					JTextField Quotation = new JTextField();
 					
-					StockFrame.setTitle("New Stock");
-					StockFrame.setVisible(true);
-					StockFrame.setSize(290,300);
-					StockFrame.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-					
-					StockPanel.add(StockNameTextfield);
-					StockPanel.add(StockQuantityLabel);
-					StockPanel.add(StockQuantitySpinner);
-					StockPanel.add(StockQuotationLabel);
-					StockPanel.add(StockQuotationSpinner);
-					StockPanel.add(OKButton);
-					StockPanel.add(CancelButton);
-					OKButton.addActionListener(new ActionListener(){
-						public void actionPerformed(ActionEvent e){
-							Double StockQuotation =(Double) StockQuotationSpinner.getValue();
-							int StockQuantity = (Integer)StockQuantitySpinner.getValue();
-							String StockName = StockNameTextfield.getText();
-							
-							System.out.println("StockQuotation: " + StockQuotation);
-							System.out.println("StockNumber: " + StockQuantity);
-							System.out.println("StockName: " + StockName);
-							
-							Stocks s = new Stocks(/*StockNameTextfield.getSelectedText(), Denna ger bara null*/ 
-									StockName, StockQuantity, StockQuotation);
+					Object[] stock = {
+					    "Name:", Name,
+					    "Quantity:", Quantity,
+					    "Quotation: ", Quotation
+					};
+
+					int option = JOptionPane.showConfirmDialog(null, stock, "Stock", JOptionPane.OK_CANCEL_OPTION);
+					if (option == JOptionPane.OK_OPTION) {
+						try{
+							String StockName = Name.getText();
+							Double StockQuotation = Double.parseDouble(Quotation.getText());
+							int StockQuantity = Integer.parseInt(Quantity.getText());
+							Stocks s = new Stocks(StockName, StockQuantity, StockQuotation);
 							vardesaker.add(s);
 							System.out.println("Size of ArrayList: " + vardesaker.size());
-							StockFrame.dispose();
 						}
-					});
-					CancelButton.addActionListener(new ActionListener(){
-						public void actionPerformed(ActionEvent e){
-							StockQuotationSpinner.setValue(0.0);
-							StockQuantitySpinner.setValue(0);
-							StockNameTextfield.setText("");
-							StockFrame.dispose();
+						catch(Exception error){
+							JOptionPane.showMessageDialog(null, "Wrong input you dick!", "Error!", JOptionPane.ERROR_MESSAGE);
 						}
-					});
+					}
 				}
 				
 				if(valuablesList.getSelectedIndex() == 2) { //Jewelry
-					//System.out.println("jew");
-					JewelPanel.add(JewelNameLabel);
-					JewelFrame.add(JewelPanel);
+					//System.out.println("jewel");
+					JTextField Name = new JTextField();
+					JTextField Stone = new JTextField();
+					JCheckBox Box = new JCheckBox();
 					
-					JewelFrame.setTitle("New Jewel");
-					JewelFrame.setVisible(true);
-					JewelFrame.setSize(250,300);
-					JewelFrame.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-					JewelPanel.add(JewelNameTextfield);
-					
-					JewelPanel.add(JewelStoneLabel);
-					JewelPanel.add(JewelStoneSpinner);
-					JewelPanel.add(Box);
-					JewelPanel.add(JewelGoldLabel);
-					JewelPanel.add(OKButton);
-					JewelPanel.add(CancelButton);
-					OKButton.addActionListener(new ActionListener(){
-						public void actionPerformed(ActionEvent e){
-							String JewelName = JewelNameTextfield.getText();
-							System.out.println("JewelName: " + JewelName);
-							int JewelStone = (Integer)JewelStoneSpinner.getValue();
-							System.out.println("JewelStone: " + JewelStone);
+					Object[] jewel = {
+					    "Name:", Name,
+					    "Stone:", Stone,
+					    "Made of Gold", Box
+					};
+
+					int option = JOptionPane.showConfirmDialog(null, jewel, "Jewel", JOptionPane.OK_CANCEL_OPTION);
+					if (option == JOptionPane.OK_OPTION) {
+						try{
+							String JewelName = Name.getText();
+							int JewelStone = Integer.parseInt(Stone.getText());
 							boolean JewelGold = Box.isSelected() == true;
 							boolean JewelSilver = Box.isSelected() == false;
 							Jewelry j = new Jewelry(JewelName, JewelStone, JewelGold, JewelSilver);
 							vardesaker.add(j);
 							System.out.println("Size of ArrayList: " + vardesaker.size());
-							JewelFrame.dispose();
 						}
-					});
-					CancelButton.addActionListener(new ActionListener(){
-						public void actionPerformed(ActionEvent e){
-							JewelStoneSpinner.setValue(0);
-							JewelNameTextfield.setText("");
-							Box.setSelected(false);
-							JewelFrame.dispose();
+						catch(Exception error){
+							JOptionPane.showMessageDialog(null, "Wrong input you dick!", "Error!", JOptionPane.ERROR_MESSAGE);
 						}
-					});
+					}
 				}
 				
 				if(valuablesList.getSelectedIndex() == 3) { //gadget
 					//System.out.println("gadget");
-					GadgetPanel.add(GadgetNameLabel);
-					GadgetFrame.add(GadgetPanel);
+					JTextField Name = new JTextField();
+					JTextField Wear = new JTextField();
+					JTextField Price = new JTextField();
 					
-					GadgetFrame.setTitle("New Gadget");
-					GadgetFrame.setVisible(true);
-					GadgetFrame.setSize(250,300);
-					GadgetFrame.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-					GadgetPanel.add(GadgetNameTextfield);
-					GadgetPanel.add(GadgetPriceLabel);
-					GadgetPanel.add(GadgetPriceSpinner);
-					GadgetPanel.add(GadgetWearLabel);
-					GadgetPanel.add(GadgetWearSpinner);
-					GadgetPanel.add(OKButton);
-					GadgetPanel.add(CancelButton);
-					OKButton.addActionListener(new ActionListener(){
-						public void actionPerformed(ActionEvent e){
-							String GadgetName = GadgetNameTextfield.getText();
-							System.out.println("GadgetName: " + GadgetName);
-							Double GadgetPrice = (Double)GadgetPriceSpinner.getValue();
-							System.out.println("GadgetPrice: " + GadgetPrice);
-							int GadgetQuotation = (Integer)GadgetWearSpinner.getValue();
-							System.out.println("GadgetWear: " + GadgetQuotation);
-							
-							Gadget g = new Gadget(GadgetName, GadgetPrice, GadgetQuotation);
+					Object[] gadget = {
+					    "Name:", Name,
+					    "Wear:", Wear,
+					    "Price: ", Price
+					};
+
+					int option = JOptionPane.showConfirmDialog(null, gadget, "Gadget", JOptionPane.OK_CANCEL_OPTION);
+					if (option == JOptionPane.OK_OPTION) {
+						try{
+							String GadgetName = Name.getText();
+							Double GadgetPrice = Double.parseDouble(Price.getText());
+							int GadgetWear = Integer.parseInt(Wear.getText());
+							Gadget g = new Gadget(GadgetName, GadgetPrice, GadgetWear);
 							vardesaker.add(g);
 							System.out.println("Size of ArrayList: " + vardesaker.size());
-							GadgetFrame.dispose();
-							
 						}
-					});
-					CancelButton.addActionListener(new ActionListener(){
-						public void actionPerformed(ActionEvent e){
-							GadgetPriceSpinner.setValue(0.0);
-							GadgetWearSpinner.setValue(0);
-							GadgetNameTextfield.setText("");
-							GadgetFrame.dispose();
+						catch(Exception error){
+							JOptionPane.showMessageDialog(null, "Wrong input you dick!", "Error!", JOptionPane.ERROR_MESSAGE);
 						}
-					});
+					}
 				}
 			}		
 		}
