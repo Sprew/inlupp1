@@ -41,7 +41,7 @@ public class inlup extends JFrame{
 		JPanel thePanel = new JPanel();
 		textArea = new JTextArea(15,20);		
 		showButton = new JButton("Show");
-		JButton crashButton = new JButton("Stock Market Crash");
+		crashButton = new JButton("Stock Market Crash");
 		JLabel newLabel = new JLabel("New: ");
 		valuablesList = new JComboBox(allValuables);
 		valuablesList.setSelectedItem(allValuables[0]);
@@ -49,10 +49,11 @@ public class inlup extends JFrame{
 		ListenForButton lForButton = new ListenForButton();
 		ListenForItem lForItem = new ListenForItem();
 		showButton.addActionListener(lForButton);
+		crashButton.addActionListener(lForButton);
 		valuablesList.addItemListener(lForItem);
 		
 		textArea.setLineWrap(true);
-		//textArea.setEditable(false);
+		textArea.setEditable(false);
 		newLabel.setToolTipText("Add new valuables");
 		showButton.setContentAreaFilled(false);
 		crashButton.setContentAreaFilled(false);
@@ -90,12 +91,18 @@ public class inlup extends JFrame{
 						Jewelry j = (Jewelry) item;
 						textArea.append("Jewelry: " + j.getName() + " Stone: " + j.getGemstone() + " Made of gold?: " + j.isGold() + " Value: " + j.getValue() + "\n");
 					}
-					/** SAKNAR FÖR DEN SISTA JEWELRY, DU FÅR LÄGGA TILL DEN :) **/
+					/** SAKNAR FÔøΩR DEN SISTA JEWELRY, DU FÔøΩR LÔøΩGGA TILL DEN :) **/
 					
 				}
 			}
 			if(e.getSource() == crashButton) {
-				
+				for(Vardesak item : vardesaker) {
+					System.out.println("Yes1");
+					if(item instanceof Stocks) {
+						((Stocks) item).setQuotation(0.0);
+						System.out.println("Yes2");
+					}
+				}
 			}
 		}	
 	}
@@ -150,9 +157,8 @@ public class inlup extends JFrame{
 						try{
 							String JewelName = Name.getText();
 							int JewelStone = Integer.parseInt(Stone.getText());
-							boolean JewelGold = Box.isSelected() == true;
-							boolean JewelSilver = Box.isSelected() == false;
-							Jewelry j = new Jewelry(JewelName, JewelStone, JewelGold, JewelSilver);
+							boolean JewelGold = Box.isSelected();
+							Jewelry j = new Jewelry(JewelName, JewelStone, JewelGold);
 							vardesaker.add(j);
 							System.out.println("Size of ArrayList: " + vardesaker.size());
 						}

@@ -39,6 +39,13 @@ public class Vardesak {
 			super(name);
 			this.quantity = quantity;
 			this.quotation = quotation;
+			calculateValue();
+		}
+		
+		public void calculateValue() {
+			double tempValue = 0;
+			tempValue = quantity*quotation;
+			setValue(tempValue);
 		}
 		
 		// GETTERS & SETTERS
@@ -54,6 +61,7 @@ public class Vardesak {
 		}
 		public void setQuotation(double quotation) {
 			this.quotation = quotation;
+			calculateValue();
 		}
 
 	}
@@ -61,14 +69,21 @@ public class Vardesak {
 	class Jewelry extends Vardesak{
 		private int gemstone;
 		private boolean gold;
-		private boolean silver;
 		
-		public Jewelry(String name, int gemstone, boolean gold, boolean silver) {
+		public Jewelry(String name, int gemstone, boolean gold) {
 			super(name);
 			this.gemstone = gemstone;
 			this.gold = gold;
-			this.silver = silver;
-
+			calculateValue();
+		}
+		
+		public void calculateValue() {
+			double tempValue = 0.0;
+			if(gold) {
+				tempValue += 2000.0; 
+			}
+			tempValue += gemstone*500.0;
+			setValue(tempValue);
 		}
 		
 		// GETTERS & SETTERS
@@ -84,22 +99,23 @@ public class Vardesak {
 		public void setGold(boolean gold) {
 			this.gold = gold;
 		}
-		public boolean isSilver() {
-			return silver;
-		}
-		public void setSilver(boolean silver) {
-			this.silver = silver;
-		}
 	}
 	
 	class Gadget extends Vardesak{
 		private double purchasePrice;
 		private int wear;
 		
-		public Gadget(String name, double purchasePrise, int wear) {
+		public Gadget(String name, double purchasePrice, int wear) {
 			super(name);
 			this.purchasePrice = purchasePrice;
 			this.wear = wear;
+			calculateValue();
+		}
+		
+		public void calculateValue() {
+			double tempValue = 0;
+			tempValue += (wear/10)*purchasePrice;
+			setValue(tempValue);
 		}
 		
 		// GETTERS & SETTERS
