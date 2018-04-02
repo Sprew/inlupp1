@@ -104,7 +104,6 @@ public class inlup extends JFrame{
 						Jewelry j = (Jewelry) item;
 						textArea.append("Jewelry: " + j.getName() + " Stone: " + j.getGemstone() + " Made of gold?: " + j.isGold() + " Value: " + j.getValue() + "\n");
 					}
-					/** SAKNAR F�R DEN SISTA JEWELRY, DU F�R L�GGA TILL DEN :) **/
 					
 				}
 			}
@@ -116,11 +115,9 @@ public class inlup extends JFrame{
 				}
 			}
 			if(e.getSource() == radioSortName) {
-				System.out.println("SORT_NAME");
 				Collections.sort(vardesaker, new SortByName());
 			}
 			if(e.getSource() == radioSortValue) {
-				System.out.println("SORT_VALUE");
 				Collections.sort(vardesaker, new SortByValue());
 			}
 		}	
@@ -132,7 +129,6 @@ public class inlup extends JFrame{
 		public void itemStateChanged(ItemEvent e) {
 			if(e.getStateChange() == ItemEvent.SELECTED) {
 				if(valuablesList.getSelectedIndex() == 1) { //stocks
-					//System.out.println("Stocks");
 					JTextField Name = new JTextField();
 					JTextField Quantity = new JTextField();
 					JTextField Quotation = new JTextField();
@@ -160,7 +156,6 @@ public class inlup extends JFrame{
 				}
 				
 				if(valuablesList.getSelectedIndex() == 2) { //Jewelry
-					//System.out.println("jewel");
 					JTextField Name = new JTextField();
 					JTextField Stone = new JTextField();
 					JCheckBox Box = new JCheckBox();
@@ -188,7 +183,6 @@ public class inlup extends JFrame{
 				}
 				
 				if(valuablesList.getSelectedIndex() == 3) { //gadget
-					//System.out.println("gadget");
 					JTextField Name = new JTextField();
 					JTextField Wear = new JTextField();
 					JTextField Price = new JTextField();
@@ -207,7 +201,6 @@ public class inlup extends JFrame{
 							int GadgetWear = Integer.parseInt(Wear.getText());
 							Gadget g = new Gadget(GadgetName, GadgetPrice, GadgetWear);
 							vardesaker.add(g);
-							System.out.println("Size of ArrayList: " + vardesaker.size());
 						}
 						catch(Exception error){
 							JOptionPane.showMessageDialog(null, "Wrong input you dick!", "Error!", JOptionPane.ERROR_MESSAGE);
