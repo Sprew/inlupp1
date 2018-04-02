@@ -150,7 +150,7 @@ public class inlup extends JFrame{
 							System.out.println("Size of ArrayList: " + vardesaker.size());
 						}
 						catch(Exception error){
-							JOptionPane.showMessageDialog(null, "Wrong input you dick!", "Error!", JOptionPane.ERROR_MESSAGE);
+							JOptionPane.showMessageDialog(null, "Wrong input!", "Error!", JOptionPane.ERROR_MESSAGE);
 						}
 					}
 				}
@@ -177,7 +177,7 @@ public class inlup extends JFrame{
 							System.out.println("Size of ArrayList: " + vardesaker.size());
 						}
 						catch(Exception error){
-							JOptionPane.showMessageDialog(null, "Wrong input you dick!", "Error!", JOptionPane.ERROR_MESSAGE);
+							JOptionPane.showMessageDialog(null, "Wrong input!", "Error!", JOptionPane.ERROR_MESSAGE);
 						}
 					}
 				}
@@ -203,7 +203,7 @@ public class inlup extends JFrame{
 							vardesaker.add(g);
 						}
 						catch(Exception error){
-							JOptionPane.showMessageDialog(null, "Wrong input you dick!", "Error!", JOptionPane.ERROR_MESSAGE);
+							JOptionPane.showMessageDialog(null, "Wrong input!", "Error!", JOptionPane.ERROR_MESSAGE);
 						}
 					}
 				}
