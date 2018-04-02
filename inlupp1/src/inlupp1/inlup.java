@@ -8,6 +8,7 @@ import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
+import java.util.Collections;
 
 import javax.swing.*;
 
@@ -16,12 +17,12 @@ public class inlup extends JFrame{
 	
 	JButton showButton;
 	JButton crashButton;
+	JRadioButton radioSortName;
+	JRadioButton radioSortValue;
 	JComboBox valuablesList;
-	String[] allValuables = {"SELECT ONE", "Stocks", "Jewelry", "Gadget"};
-	
-	
 	JTextArea textArea;
 	
+	String[] allValuables = {"SELECT ONE", "Stocks", "Jewelry", "Gadget"};	
 	ArrayList<Vardesak> vardesaker = new ArrayList<Vardesak>();
 	
 	
@@ -43,14 +44,23 @@ public class inlup extends JFrame{
 		showButton = new JButton("Show");
 		crashButton = new JButton("Stock Market Crash");
 		JLabel newLabel = new JLabel("New: ");
+		JLabel sortLabel = new JLabel("Sort");
 		valuablesList = new JComboBox(allValuables);
-		valuablesList.setSelectedItem(allValuables[0]);
+		radioSortName = new JRadioButton("Name");
+		radioSortValue = new JRadioButton("Value");
 		
 		ListenForButton lForButton = new ListenForButton();
 		ListenForItem lForItem = new ListenForItem();
 		showButton.addActionListener(lForButton);
 		crashButton.addActionListener(lForButton);
+		valuablesList.setSelectedItem(allValuables[0]);
 		valuablesList.addItemListener(lForItem);
+		ButtonGroup radioButtonGroup = new ButtonGroup();
+		radioButtonGroup.add(radioSortName);
+		radioButtonGroup.add(radioSortValue);
+		radioSortName.addActionListener(lForButton);
+		radioSortValue.addActionListener(lForButton);
+		
 		
 		textArea.setLineWrap(true);
 		textArea.setEditable(false);
@@ -68,6 +78,9 @@ public class inlup extends JFrame{
 		thePanel.add(valuablesList);
 		thePanel.add(showButton);
 		thePanel.add(crashButton);
+		thePanel.add(sortLabel);
+		thePanel.add(radioSortName);
+		thePanel.add(radioSortValue);
 		this.add(thePanel);		
 		this.setVisible(true);	
 	}
@@ -97,12 +110,18 @@ public class inlup extends JFrame{
 			}
 			if(e.getSource() == crashButton) {
 				for(Vardesak item : vardesaker) {
-					System.out.println("Yes1");
 					if(item instanceof Stocks) {
 						((Stocks) item).setQuotation(0.0);
-						System.out.println("Yes2");
 					}
 				}
+			}
+			if(e.getSource() == radioSortName) {
+				System.out.println("SORT_NAME");
+				Collections.sort(vardesaker, new SortByName());
+			}
+			if(e.getSource() == radioSortValue) {
+				System.out.println("SORT_VALUE");
+				Collections.sort(vardesaker, new SortByValue());
 			}
 		}	
 	}

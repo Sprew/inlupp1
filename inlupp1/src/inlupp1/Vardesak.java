@@ -1,10 +1,13 @@
 package inlupp1;
 
+import java.util.Comparator;
+
 public class Vardesak {
 	
 	
 	private String name;
 	private double value;
+	
 
 
 	public Vardesak(String name) {
@@ -27,6 +30,23 @@ public class Vardesak {
 	}
 
 }
+
+
+/// SORT 
+class SortByName implements Comparator<Vardesak>{
+	@Override
+	public int compare(Vardesak a, Vardesak b) {
+		return a.getName().compareTo(b.getName());
+	}
+}
+
+class SortByValue implements Comparator<Vardesak>{
+	@Override
+	public int compare(Vardesak a, Vardesak b) {
+		return (int) (a.getValue() - b.getValue());
+	}
+}
+
 	
 
 /// SUBCLASSES ******************
