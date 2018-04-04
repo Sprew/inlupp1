@@ -56,8 +56,11 @@ public class inlup extends JFrame{
 		valuablesList.setSelectedItem(allValuables[0]);
 		valuablesList.addItemListener(lForItem);
 		ButtonGroup radioButtonGroup = new ButtonGroup();
+		Box vertical = Box.createVerticalBox();
 		radioButtonGroup.add(radioSortName);
 		radioButtonGroup.add(radioSortValue);
+		vertical.add(radioSortName);
+		vertical.add(radioSortValue);
 		radioSortName.addActionListener(lForButton);
 		radioSortValue.addActionListener(lForButton);
 		
@@ -79,8 +82,7 @@ public class inlup extends JFrame{
 		thePanel.add(showButton);
 		thePanel.add(crashButton);
 		thePanel.add(sortLabel);
-		thePanel.add(radioSortName);
-		thePanel.add(radioSortValue);
+		thePanel.add(vertical);
 		this.add(thePanel);		
 		this.setVisible(true);	
 	}
