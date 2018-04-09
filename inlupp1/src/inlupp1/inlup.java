@@ -12,7 +12,7 @@ import java.util.Collections;
 
 import javax.swing.*;
 
-
+//
 public class inlup extends JFrame{
 	
 	JButton showButton;
