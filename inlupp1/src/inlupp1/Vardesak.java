@@ -100,7 +100,10 @@ class SortByValue implements Comparator<Vardesak>{
 		public void calculateValue() {
 			double tempValue = 0.0;
 			if(gold) {
-				tempValue += 2000.0; 
+				tempValue += 2000.0;  
+//			} else {
+//				tempValue += 700.0;   behöver vi inte addera värdet för silver också??
+
 			}
 			tempValue += gemstone*500.0;
 			setValue(tempValue);
@@ -134,7 +137,7 @@ class SortByValue implements Comparator<Vardesak>{
 		
 		public void calculateValue() {
 			double tempValue = 0;
-			tempValue += (wear/10)*purchasePrice;
+			tempValue += (wear/10)*purchasePrice; // + (tempValue * (25.0f / 100.0f)); // här ska man lägga på moms också, eller hur?
 			setValue(tempValue);
 		}
 		
