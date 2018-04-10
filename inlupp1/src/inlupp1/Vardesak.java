@@ -102,7 +102,7 @@ class SortByValue implements Comparator<Vardesak>{
 			if(gold) {
 				tempValue += 2000.0;  
 //			} else {
-//				tempValue += 700.0;   behöver vi inte addera värdet för silver också??
+//				tempValue += 700.0;  behöver vi inte addera värdet för silver också??
 
 			}
 			tempValue += gemstone*500.0;
