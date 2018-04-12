@@ -137,7 +137,7 @@ class SortByValue implements Comparator<Vardesak>{
 		
 		public void calculateValue() {
 			double tempValue = 0;
-			tempValue += (wear/10)*purchasePrice + (tempValue * (25.0f / 100.0f));
+			tempValue += ((wear/10)*purchasePrice) + (tempValue * (25.0f / 100.0f));
 			setValue(tempValue);
 		}
 		
