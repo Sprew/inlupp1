@@ -1,5 +1,6 @@
 package inlupp1;
 
+import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
@@ -9,7 +10,6 @@ import java.awt.event.ItemListener;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.Collections;
-
 import javax.swing.*;
 
 
@@ -33,58 +33,63 @@ public class inlup extends JFrame{
 	
 	public inlup() {
 		
-		this.setSize(800, 600);		
-		this.setLocationRelativeTo(null);		
-		this.setResizable(false);		
-		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		this.setTitle("Vardesaker");
+		super("Register");
+		JPanel nedre = new JPanel();
+		add(nedre, BorderLayout.SOUTH);
 		
-		JPanel thePanel = new JPanel();
-		textArea = new JTextArea(15,20);		
-		showButton = new JButton("Show");
-		crashButton = new JButton("Stock Market Crash");
-		JLabel newLabel = new JLabel("New: ");
-		JLabel sortLabel = new JLabel("Sort");
-		valuablesList = new JComboBox(allValuables);
-		radioSortName = new JRadioButton("Name");
-		radioSortValue = new JRadioButton("Value");
+		setSize(400, 500);
+		setLocation(300, 400);
+		setVisible(true);
+		Dimension d = new Dimension(100, 50);
+		setDefaultCloseOperation(EXIT_ON_CLOSE);
+			
+			JPanel thePanel = new JPanel();
+			textArea = new JTextArea(15,20);		
+			showButton = new JButton("Show");
+			crashButton = new JButton("Stock Market Crash");
+			JLabel newLabel = new JLabel();
+			JLabel sortLabel = new JLabel("Sort: ");
+			valuablesList = new JComboBox(allValuables);
+			radioSortName = new JRadioButton("Name");
+			radioSortValue = new JRadioButton("Value");
+			
+			ListenForButton lForButton = new ListenForButton();
+			ListenForItem lForItem = new ListenForItem();
+			showButton.addActionListener(lForButton);
+			crashButton.addActionListener(lForButton);
+			valuablesList.setSelectedItem(allValuables[0]);
+			valuablesList.addItemListener(lForItem);
+			ButtonGroup radioButtonGroup = new ButtonGroup();
+			Box vertical = Box.createVerticalBox();
+			radioButtonGroup.add(radioSortName);
+			radioButtonGroup.add(radioSortValue);
+			vertical.add(radioSortName);
+			vertical.add(radioSortValue);
+			radioSortName.addActionListener(lForButton);
+			radioSortValue.addActionListener(lForButton);
+			textArea.setLineWrap(true);
+			textArea.setEditable(false);
+			newLabel.setToolTipText("Add new valuables");
+			showButton.setContentAreaFilled(false);
+			crashButton.setContentAreaFilled(false);
+			JScrollPane scrollbar1 = new JScrollPane(textArea, 
+					JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, 
+					JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+					
+			nedre.add(new JLabel("New:"));
+			nedre.add(valuablesList);
+			nedre.add(showButton);
+			nedre.add(crashButton);
+			add(thePanel);
+						
+			thePanel.add(scrollbar1, BorderLayout.CENTER);
+			thePanel.add(textArea);
+			thePanel.add(sortLabel);
+			thePanel.add(vertical);
+			pack();
+			this.add(thePanel);		
+			this.setVisible(true);	
 		
-		ListenForButton lForButton = new ListenForButton();
-		ListenForItem lForItem = new ListenForItem();
-		showButton.addActionListener(lForButton);
-		crashButton.addActionListener(lForButton);
-		valuablesList.setSelectedItem(allValuables[0]);
-		valuablesList.addItemListener(lForItem);
-		ButtonGroup radioButtonGroup = new ButtonGroup();
-		Box vertical = Box.createVerticalBox();
-		radioButtonGroup.add(radioSortName);
-		radioButtonGroup.add(radioSortValue);
-		vertical.add(radioSortName);
-		vertical.add(radioSortValue);
-		radioSortName.addActionListener(lForButton);
-		radioSortValue.addActionListener(lForButton);
-		
-		
-		textArea.setLineWrap(true);
-		textArea.setEditable(false);
-		newLabel.setToolTipText("Add new valuables");
-		showButton.setContentAreaFilled(false);
-		crashButton.setContentAreaFilled(false);
-		JScrollPane scrollbar1 = new JScrollPane(textArea, 
-				JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, 
-				JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
-				
-		
-		thePanel.add(scrollbar1);
-		thePanel.add(textArea);
-		thePanel.add(newLabel);	
-		thePanel.add(valuablesList);
-		thePanel.add(showButton);
-		thePanel.add(crashButton);
-		thePanel.add(sortLabel);
-		thePanel.add(vertical);
-		this.add(thePanel);		
-		this.setVisible(true);	
 	}
 
 	private class ListenForButton implements ActionListener{
