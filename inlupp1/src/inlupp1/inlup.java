@@ -104,7 +104,7 @@ public class inlup extends JFrame{
 					}
 					if(item instanceof Jewelry){
 						Jewelry j = (Jewelry) item;
-						textArea.append("Jewelry: " + j.getName() + " Stone: " + j.getGemstone() + " Made of gold?: " + j.isGold() + " Value: " + j.getValue() + "\n");
+						textArea.append("Jewelry: " + j.getName() + " Stone: " + j.getGemNumber() + " Made of gold?: " + j.getIsGold() + " Value: " + j.getValue() + "\n");
 					}
 					
 				}
