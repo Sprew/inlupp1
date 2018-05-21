@@ -134,87 +134,88 @@ public class inlup extends JFrame{
 
 		@Override
 		public void itemStateChanged(ItemEvent e) {
-			if(e.getStateChange() == ItemEvent.SELECTED) {
-				if(valuablesList.getSelectedIndex() == 1) { //stocks
+			if (e.getStateChange() == ItemEvent.SELECTED) {
+				if (valuablesList.getSelectedIndex() == 1) { // stocks
 					JTextField Name = new JTextField();
 					JTextField Quantity = new JTextField();
 					JTextField Quotation = new JTextField();
-					
-					Object[] stock = {
-					    "Name:", Name,
-					    "Quantity:", Quantity,
-					    "Quotation: ", Quotation
-					};
+
+					Object[] stock = { "Name:", Name, "Quantity:", Quantity, "Quotation: ", Quotation };
 
 					int option = JOptionPane.showConfirmDialog(null, stock, "Stock", JOptionPane.OK_CANCEL_OPTION);
 					if (option == JOptionPane.OK_OPTION) {
-						try{
-							String StockName = Name.getText();
-							Double StockQuotation = Double.parseDouble(Quotation.getText());
-							int StockQuantity = Integer.parseInt(Quantity.getText());
-							Stocks s = new Stocks(StockName, StockQuantity, StockQuotation);
-							vardesaker.add(s);
-							System.out.println("Size of ArrayList: " + vardesaker.size());
-						}
-						catch(Exception error){
-							JOptionPane.showMessageDialog(null, "Wrong input!", "Error!", JOptionPane.ERROR_MESSAGE);
+						if (Name.getText().equals("")) {
+							JOptionPane.showMessageDialog(null, "Please enter a name!", "Error!",
+									JOptionPane.ERROR_MESSAGE);
+						} else {
+							try {
+								String StockName = Name.getText();
+								Double StockQuotation = Double.parseDouble(Quotation.getText());
+								int StockQuantity = Integer.parseInt(Quantity.getText());
+								Stocks s = new Stocks(StockName, StockQuantity, StockQuotation);
+								vardesaker.add(s);
+								System.out.println("Size of ArrayList: " + vardesaker.size());
+							} catch (Exception error) {
+								JOptionPane.showMessageDialog(null, "Wrong input!", "Error!",
+										JOptionPane.ERROR_MESSAGE);
+							}
 						}
 					}
 				}
-				
-				if(valuablesList.getSelectedIndex() == 2) { //Jewelry
+				if (valuablesList.getSelectedIndex() == 2) { // Jewelry
 					JTextField Name = new JTextField();
 					JTextField Stone = new JTextField();
 					JCheckBox Box = new JCheckBox();
-					
-					Object[] jewel = {
-					    "Name:", Name,
-					    "Stone:", Stone,
-					    "Made of Gold", Box
-					};
+
+					Object[] jewel = { "Name:", Name, "Stone:", Stone, "Made of Gold", Box };
 
 					int option = JOptionPane.showConfirmDialog(null, jewel, "Jewel", JOptionPane.OK_CANCEL_OPTION);
 					if (option == JOptionPane.OK_OPTION) {
-						try{
-							String JewelName = Name.getText();
-							int JewelStone = Integer.parseInt(Stone.getText());
-							boolean JewelGold = Box.isSelected();
-							Jewelry j = new Jewelry(JewelName, JewelStone, JewelGold);
-							vardesaker.add(j);
-							System.out.println("Size of ArrayList: " + vardesaker.size());
-						}
-						catch(Exception error){
-							JOptionPane.showMessageDialog(null, "Wrong input!", "Error!", JOptionPane.ERROR_MESSAGE);
+						if (Name.getText().equals("")) {
+							JOptionPane.showMessageDialog(null, "Please enter a name!", "Error!",
+									JOptionPane.ERROR_MESSAGE);
+						} else {
+							try {
+								String JewelName = Name.getText();
+								int JewelStone = Integer.parseInt(Stone.getText());
+								boolean JewelGold = Box.isSelected();
+								Jewelry j = new Jewelry(JewelName, JewelStone, JewelGold);
+								vardesaker.add(j);
+								System.out.println("Size of ArrayList: " + vardesaker.size());
+							} catch (Exception error) {
+								JOptionPane.showMessageDialog(null, "Wrong input!", "Error!",
+										JOptionPane.ERROR_MESSAGE);
+							}
 						}
 					}
 				}
-				
-				if(valuablesList.getSelectedIndex() == 3) { //gadget
+				if (valuablesList.getSelectedIndex() == 3) { // gadget
 					JTextField Name = new JTextField();
 					JTextField Wear = new JTextField();
 					JTextField Price = new JTextField();
-					
-					Object[] gadget = {
-					    "Name:", Name,
-					    "Wear:", Wear,
-					    "Price: ", Price
-					};
+
+					Object[] gadget = { "Name:", Name, "Wear:", Wear, "Price: ", Price };
 
 					int option = JOptionPane.showConfirmDialog(null, gadget, "Gadget", JOptionPane.OK_CANCEL_OPTION);
 					if (option == JOptionPane.OK_OPTION) {
-						try{
-							String GadgetName = Name.getText();
-							Double GadgetPrice = Double.parseDouble(Price.getText());
-							int GadgetWear = Integer.parseInt(Wear.getText());
-							Gadget g = new Gadget(GadgetName, GadgetPrice, GadgetWear);
-							vardesaker.add(g);
-						}
-						catch(Exception error){
-							JOptionPane.showMessageDialog(null, "Wrong input!", "Error!", JOptionPane.ERROR_MESSAGE);
+						if (Name.getText().equals("")) {
+							JOptionPane.showMessageDialog(null, "Please enter a name!", "Error!",
+									JOptionPane.ERROR_MESSAGE);
+						} else {
+							try {
+								String GadgetName = Name.getText();
+								Double GadgetPrice = Double.parseDouble(Price.getText());
+								int GadgetWear = Integer.parseInt(Wear.getText());
+								Gadget g = new Gadget(GadgetName, GadgetPrice, GadgetWear);
+								vardesaker.add(g);
+							} catch (Exception error) {
+								JOptionPane.showMessageDialog(null, "Wrong input!", "Error!",
+										JOptionPane.ERROR_MESSAGE);
+							}
 						}
 					}
 				}
-			}		
+			}
 		}
 	}
 }
