@@ -99,19 +99,7 @@ public class inlup extends JFrame{
 			if(e.getSource() == showButton) {
 				textArea.setText("");
 				for(Vardesak item: vardesaker) {
-					if(item instanceof Stocks) {
-						Stocks s = (Stocks) item;
-						textArea.append("Stock: " + s.getName() + " Quantity: " + s.getQuantity() + " Quotation: " + s.getQuotation() + " Value: " + s.getValue() + "\n");			
-					}
-					if(item instanceof Gadget) {
-						Gadget g = (Gadget) item;
-						textArea.append("Gadget: " + g.getName() + " Price: " + g.getPurchasePrice() + " Wear: " + g.getWear() + " Value: " + g.getValue() + "\n");
-					}
-					if(item instanceof Jewelry){
-						Jewelry j = (Jewelry) item;
-						textArea.append("Jewelry: " + j.getName() + " Stone: " + j.getGemNumber() + " Made of gold?: " + j.getIsGold() + " Value: " + j.getValue() + "\n");
-					}
-					
+					textArea.append(item.toString() + "\n");
 				}
 			}
 			if(e.getSource() == crashButton) {
