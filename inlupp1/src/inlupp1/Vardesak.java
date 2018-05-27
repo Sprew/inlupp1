@@ -2,7 +2,7 @@ package inlupp1;
 
 import java.util.Comparator;
 
-abstract class Vardesak {
+public abstract class Vardesak {
 
 	private String name;
 	private double value;
